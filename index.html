@@ -29,7 +29,7 @@ var isLeftDown = false;
 
 
 function create() {
-    game.add.sprite(0, 0, 'star');
+    star = game.add.sprite(400, 300, 'star');
 
     cursors = game.input.keyboard.createCursorKeys();
 }
@@ -43,11 +43,15 @@ function update() {
     }
     if (cursors.left.isUp && isLeftDown == true)
     {
-        //  Move to the right
+        //  
         socket.emit('leftStatus', false);
         isLeftDown = false;
     }
 
+    socket.on('position', function(posData){
+        star.x = posData.starPosX;
+        star.y = posData.starPosY;
+    });
     
 
 }
